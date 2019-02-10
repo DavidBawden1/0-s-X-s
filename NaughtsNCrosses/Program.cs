@@ -3,7 +3,6 @@ using NaughtsNCrosses.Rules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace NaughtsNCrosses
 {
@@ -17,6 +16,7 @@ namespace NaughtsNCrosses
         public static Player PreviousPlayer { get; set; } = new Player();
         public static Board Board { get; set; } = new Board();
         public static Referee Referee { get; set; } = new Referee();
+        public static int TurnCount = 0;
 
         static void Main(string[] args)
         {
@@ -24,15 +24,13 @@ namespace NaughtsNCrosses
             InitialisePlayers();
             GameIntroduction();
 
-            Board board = new Board();
             var CurrentPlayer = Players.FirstOrDefault(x => x.IsTurn == true);
-            board.DrawBoard(board.PossiblePlays);
+            Board.DrawBoard(Board.PossiblePlays);
 
-            int turnNumber = 0;
-            while (turnNumber < board.MaxNumberOfPlays)
+            while (TurnCount < Board.MaxNumberOfPlays)
             {
                 Console.WriteLine($"Current Turn is {CurrentPlayer.Name}, plot your {CurrentPlayer.NaughtOrCross}");
-                turnNumber++;
+                TurnCount++;
                 CurrentPlayer = TakeTurn(Players);
             }
 
@@ -74,10 +72,20 @@ namespace NaughtsNCrosses
                 PreviousPlayer = Players.FirstOrDefault(x => x.IsTurn == false);
                 Console.WriteLine($"{CurrentPlayer.Name} WINS!!!");
                 Console.WriteLine($"The score is: {CurrentPlayer.Name}: {CurrentPlayer.WinCounter} | {PreviousPlayer.Name}: {PreviousPlayer.WinCounter}");
+                Console.WriteLine("Press any key to play again.");
+                Console.ReadKey();
+                ResetBoard();
             }
             CurrentPlayer = Referee.DetermineCurrentPlayersTurn(Players).FirstOrDefault(x => x.IsTurn == true);
 
             return CurrentPlayer;
+        }
+
+        private static void ResetBoard()
+        {
+            Board.PossiblePlays = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8' };
+            Board.DrawBoard(Board.PossiblePlays);
+            TurnCount = 0;
         }
 
         private static void CheckMarkerTaken(int playIndex)
