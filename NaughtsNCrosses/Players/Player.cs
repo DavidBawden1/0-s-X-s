@@ -6,5 +6,6 @@
         public string Name { get; set; }
         public bool IsTurn { get; set; }
         public string NaughtOrCross { get; set; }
+        public int WinCounter = 0;
     }
 }

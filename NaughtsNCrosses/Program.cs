@@ -14,6 +14,7 @@ namespace NaughtsNCrosses
         public static Player Player1 { get; set; } = new Player();
         public static Player Player2 { get; set; } = new Player();
         public static Player CurrentPlayer { get; set; } = new Player();
+        public static Player PreviousPlayer { get; set; } = new Player();
         public static Board Board { get; set; } = new Board();
         public static Referee Referee { get; set; } = new Referee();
 
@@ -64,12 +65,15 @@ namespace NaughtsNCrosses
         private static Player TakeTurn(List<Player> Players)
         {
             int playIndex = GetPlayerInput();
-            CheckMarkerTaken(playIndex); // bug here. the second go overwrites the first go. 
+            CheckMarkerTaken(playIndex); 
             CurrentPlayer = Players.FirstOrDefault(x => x.IsTurn == true);
             UpdatePlays(playIndex, CurrentPlayer);
             if(CheckWinner())
             {
+                CurrentPlayer.WinCounter++;
+                PreviousPlayer = Players.FirstOrDefault(x => x.IsTurn == false);
                 Console.WriteLine($"{CurrentPlayer.Name} WINS!!!");
+                Console.WriteLine($"The score is: {CurrentPlayer.Name}: {CurrentPlayer.WinCounter} | {PreviousPlayer.Name}: {PreviousPlayer.WinCounter}");
             }
             CurrentPlayer = Referee.DetermineCurrentPlayersTurn(Players).FirstOrDefault(x => x.IsTurn == true);
 

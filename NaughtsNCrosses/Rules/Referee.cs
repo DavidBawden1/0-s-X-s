@@ -6,7 +6,6 @@ namespace NaughtsNCrosses.Rules
 {
     public class Referee
     {
-        public char[] PossiblePlays { get; set; }
 
         public List<Player> DetermineCurrentPlayersTurn(List<Player> players)
         {
