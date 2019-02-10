@@ -123,7 +123,40 @@ namespace NaughtsNCrosses
 
         public static bool CheckWinner()
         {
+            //diagonal checks
             if(Board.PossiblePlays[0] == Board.PossiblePlays[4] && Board.PossiblePlays[4] == Board.PossiblePlays[8])
+            {
+                return true;
+            }
+            if (Board.PossiblePlays[2] == Board.PossiblePlays[4] && Board.PossiblePlays[4] == Board.PossiblePlays[6])
+            {
+                return true;
+            }
+
+            //horizontal checks
+            if (Board.PossiblePlays[0] == Board.PossiblePlays[1] && Board.PossiblePlays[1] == Board.PossiblePlays[2])
+            {
+                return true;
+            }
+            if (Board.PossiblePlays[3] == Board.PossiblePlays[4] && Board.PossiblePlays[4] == Board.PossiblePlays[5])
+            {
+                return true;
+            }
+            if (Board.PossiblePlays[6] == Board.PossiblePlays[7] && Board.PossiblePlays[7] == Board.PossiblePlays[8])
+            {
+                return true;
+            }
+
+            //vertical checks
+            if (Board.PossiblePlays[0] == Board.PossiblePlays[3] && Board.PossiblePlays[3] == Board.PossiblePlays[6])
+            {
+                return true;
+            }
+            if (Board.PossiblePlays[1] == Board.PossiblePlays[4] && Board.PossiblePlays[4] == Board.PossiblePlays[7])
+            {
+                return true;
+            }
+            if (Board.PossiblePlays[2] == Board.PossiblePlays[5] && Board.PossiblePlays[5] == Board.PossiblePlays[8])
             {
                 return true;
             }
